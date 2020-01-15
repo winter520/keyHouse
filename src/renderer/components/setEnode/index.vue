@@ -8,9 +8,9 @@
       <!-- <el-input v-model="netUrl" class="mt-10"></el-input> -->
       <el-select class="WW100 mt-10" v-model="netUrl" filterable allow-create default-first-option placeholder="" :title="netUrl" :disabled="!isSetNode">
         <el-option
-          v-for="item in netUrlArr"
-          :key="item.url"
-          :label="item.url"
+          v-for="(item, index) in netUrlArr"
+          :key="index"
+          :label="item.name ? item.name : item.url"
           :value="item.url">
         </el-option>
       </el-select>
@@ -51,12 +51,26 @@ export default {
       viewEnode: '',
       netUrl: this.serverRPC,
       netUrlArr: [],
+      noSaveDBnet: [],
       loading: {
         setNode: false
       },
       dataPage: {},
       eDialog: {
         pwd: false
+      }
+    }
+  },
+  sockets: {
+    getNodeInfos (res) {
+      console.log(res)
+      if (res.msg === 'Success' && res.info.length > 0) {
+        let arr = []
+        for (let obj of res.info) {
+          arr.push(obj)
+          this.noSaveDBnet.push(obj.url)
+        }
+        this.netUrlArr.push(...arr)
       }
     }
   },
@@ -79,24 +93,33 @@ export default {
         this.netUrlArr = [{
           url: this.$$.config.serverRPC
         }]
+        this.noSaveDBnet = [this.$$.config.serverRPC]
         if (res.length > 0) {
-          this.netUrlArr.push(...res)
+          for (let obj of res) {
+            if (!this.noSaveDBnet.includes(obj.url)) {
+              this.noSaveDBnet.push(obj.url)
+              this.netUrlArr.push(obj)
+            }
+          }
         }
         this.netUrl = this.serverRPC
+        this.$socket.emit('getNodeInfos')
       })
     },
     saveRpcDB () {
       let url = this.netUrl
-      findNode({url: url}).then(res => {
-        if (res.length <= 0 && url !== this.$$.config.serverRPC) {
-          insertNode({
-            url: url
-          }).then(res => {
-            // console.log(res)
-            this.getNetUrl()
-          })
-        }
-      })
+      if (!this.noSaveDBnet.includes(url)) {
+        findNode({url: url}).then(res => {
+          if (res.length <= 0 && url !== this.$$.config.serverRPC) {
+            insertNode({
+              url: url
+            }).then(res => {
+              // console.log(res)
+              this.getNetUrl()
+            })
+          }
+        })
+      }
     },
     setNet () {
       this.loading.setNode = true

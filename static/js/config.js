@@ -115,10 +115,14 @@ let publicSet = {
    * @description 日夜模式设置
    */
   dayAndNight: '1', // '0': 夜晚； '1': 白天
+  /**
+   * @description 默认组模式
+   */
+  initGroupMode: '5/5',
 }
 
-publicSet.appURL = 'http://139.196.26.212:8300'
-// publicSet.appURL = 'http://localhost:8300'
+// publicSet.appURL = 'http://139.196.26.212:8300'
+publicSet.appURL = 'http://localhost:8300'
 // publicSet.appURL = 'http://192.168.1.184:8877'
 // publicSet.appURL = 'http://192.168.1.153:7700'
 
@@ -137,6 +141,6 @@ publicSet.serverRPC = 'http://192.168.1.104:9013'
 // publicSet.serverRPC = 'http://127.0.0.1:12392'
 // publicSet.serverRPC = 'http://127.0.0.1:12393'
 
-publicSet.serverRPC = 'http://127.0.0.1:6691'
+// publicSet.serverRPC = 'http://127.0.0.1:6691'
 // module.exports = publicSet
 export default publicSet

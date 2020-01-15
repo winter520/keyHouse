@@ -12,7 +12,7 @@
             <span :title="scope.row.key" @click="toUrl('/gValid', {key: scope.row.keyId})">{{ $$.cutOut(scope.row.key, 20, 12) }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('btn').group" align="center">
+        <el-table-column :label="$t('label').groupId" align="center">
           <template slot-scope="scope">
             <span :title="scope.row.gId">{{ $$.cutOut(scope.row.gId, 20, 12) }}</span>
           </template>

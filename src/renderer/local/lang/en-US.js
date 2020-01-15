@@ -49,7 +49,7 @@ export default {
 		code: 'QR Code',
 		copy: 'Copy',
 		createAccount: 'Create Managed Account',
-		restart: 'Restart',
+		restart: 'Reset',
 		agree: 'Agree',
 		refuse: 'Refuse',
 		approval: 'Approval',
@@ -116,7 +116,8 @@ export default {
 		initiator: 'Initiator',
 		approver: 'Approver',
 		version: 'Version',
-		versionTest: 'Testnet'
+		versionTest: 'Testnet',
+		groupId: 'Group ID'
 	},
 	state: {
 		name: 'Status',

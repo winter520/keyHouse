@@ -118,7 +118,8 @@ export default {
 		initiator: '发起者',
 		approver: '审批者',
 		version: '版本',
-		versionTest: '测试网'
+		versionTest: '测试网',
+		groupId: '组ID'
 	},
 	state: {
 		name: '状态',
@@ -132,7 +133,7 @@ export default {
 	},
 	tip: {
 		name: '提示',
-		walletTip: '<span class="color_red">注意：当前版本为测试网。<br />请勿转入主网币，否则将丢失所有资产！<br />钱包密钥是本地存储。我们无法恢复密钥！</span>',
+		walletTip: '注意：当前版本为测试网。<br />请勿转入主网币，否则将丢失所有资产！<br />钱包密钥是本地存储。我们无法恢复密钥！',
 		deleteNode: '此操作将永久删除该节点, 是否继续? ',
 		devTip: '开发中'
 	}
