@@ -87,7 +87,7 @@ export default {
         pageSize: 10,
         total: 0
       },
-      timeout: 1000 * 60 * 10
+      timeout: 1000 * 60 * 30
     }
   },
   sockets: {
@@ -211,7 +211,7 @@ export default {
             } else if (stateObj.a === dataObj.member.length) {
               state = 5
               this.getTxnsHash(dataObj._id, dataObj.key, i)
-            } else if ((nowTime - dataObj.timestamp) < this.timeout && stateObj.p > 0) {
+            } else if ((nowTime - dataObj.timestamp) > this.timeout && stateObj.p > 0) {
               state = 6
               dataObj.status = state
               this.setTxnsDBState(dataObj._id, i, '', state)
@@ -232,14 +232,19 @@ export default {
       this.$$.getLockOutStatus(key).then(res => {
         console.log(res)
         if (res.msg === 'Success' && res.status === 'Success') {
-          this.setTxnsDBState(id, index, hash, 1)
-          this.tableData[index].hash = hash
-        } else {
+          this.setTxnsDBState(id, index, res.info.OutTxHash, 1)
+          this.tableData[index].hash = res.info.OutTxHash
+        } else if (res.status === 'Failure') {
           this.setTxnsDBState(id, index, '', 2)
           this.tableData[index].status = 2
         }
       }).catch(err => {
-        this.msgError(err.error.toString())
+        console.log(err)
+        if (err.error) {
+          this.msgError(err.error.toString())
+        } else {
+          this.msgError(err.toString())
+        }
       })
     },
     setTxnsDBState (id, index, hash, status) {
