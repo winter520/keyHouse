@@ -70,7 +70,7 @@ export default {
           arr.push(obj)
           this.noSaveDBnet.push(obj.url)
         }
-        this.netUrlArr.push(...arr)
+        this.netUrlArr.unshift(...arr)
       }
     }
   },
