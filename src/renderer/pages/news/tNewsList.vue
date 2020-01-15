@@ -3,6 +3,7 @@
     <div class="t-news-list-box" v-if="newsList.length > 0">
       <ul>
         <li class="item" v-for="(item, index) in newsList" :key="index">
+          <div class="labelType rotate_45 flex-c self" v-if="address === item.Account">{{$t('label').initiator}}</div>
           <div class="address-box flex-bc">
             <p class="addr" :title="item.DcrmFrom"><span class="label">{{$t('label').from}}:</span> {{$$.cutOut(item.DcrmFrom, 12, 10)}}</p>
             <p class="addr" :title="item.DcrmTo"><span class="label">{{$t('label').to}}:</span> {{$$.cutOut(item.DcrmTo, 12, 10)}}</p>
