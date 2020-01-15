@@ -77,8 +77,6 @@ export default {
     GroupAccountsFind (res) {
       console.log(res)
       let nowTime = Date.now()
-      let timeout = 1000 * 60 * 10
-      // let timeout = 1000 * 30
       if (res.msg === 'Success' && res.info.length > 0) {
         this.page.total = res.total
         // this.tableData = res.info
@@ -98,7 +96,7 @@ export default {
               keyId: obj.keyId,
               status: _s
             })
-          } else if (obj.status === 0 && _s1 < obj.member.length && (nowTime - obj.timestamp) >= timeout) {
+          } else if (obj.status === 0 && _s1 < obj.member.length && (nowTime - obj.timestamp) >= this.$$.config.timeout) {
             _s = 6
             this.$socket.emit('changeGroupAccountsEdit', {
               keyId: obj.keyId,

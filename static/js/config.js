@@ -12,26 +12,6 @@ let publicSet = {
    */
   versionType: 0,
   /**
-   * @description 链接node请求的地址
-   */
-  appURL: 'wss://api.ccdex.top',
-  /**
-   * @description 水龙头请求数据地址
-   */
-  faucetURL: 'wss://walletapp.dcrm.network/faucet',
-  /**
-   * @description 浏览器网页地址
-   */
-  explorerURL: 'https://dcrm.network/explorer/#/',
-  /**
-   * @description 钱包网页地址
-   */
-  walletURL: 'https://dcrm.network/wallet/#/',
-  /**
-   * @description DEX网页地址
-   */
-  dexappURL: 'https://dcrm.network/trade/#/',
-  /**
    * @description 区块节点请求地址
    */
   serverRPC: 'http://127.0.0.1:6691',
@@ -46,7 +26,7 @@ let publicSet = {
   /**
    * @description 页面title设置
    */
-  title: 'FUSION | DCRM Wallet',
+  title: 'SMPC Wallet',
   /**
    * @description 项目所属
    */
@@ -54,37 +34,11 @@ let publicSet = {
   /**
    * @description copyRight
    */
-  copyRight: '2018 FUSION Foundation. All rights reserved.',
+  copyRight: '',
   /**
-   * @description 其他相关地址
+   * @description 超时时间
    */
-  otherUrl: {
-    github: 'https://github.com/FUSIONFoundation/dcrm-go', // GitHub
-    gitter: 'https://gitter.im/FUSIONDC/', // 
-    mainNetwork: 'https://fusion.org' // 
-  },
-  /**
-   * @description 本地文件存储地址
-   */
-  file: {
-    ks: { // keystore 地址和后缀名
-      url: path + '/data/ks/',
-      type: '.json'
-    },
-    ga: { // 账户 地址和后缀名
-      url: path + '/data/ga/',
-      type: '.json'
-    },
-    img: { // 账户头像地址
-      url: path + '/data/img/',
-      type: '.jpg'
-    }
-  },
-  personFilename: 'Person',
-  /**
-   * @description 监听页面，超时时间
-   */
-  watchPageTime: 1000 * 60 * 30,
+  timeout: 1000 * 60 * 10,
   /**
    * @description Cookie key
    */
@@ -98,7 +52,6 @@ let publicSet = {
    * @description 启动gdcrm路径
    */
   gDcrm: path + '/gdcrm.exe',
-  // gDcrm: '../gdcrm.exe',
   /**
    * @description 启动gdcrm路径
    */

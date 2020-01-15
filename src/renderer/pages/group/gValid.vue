@@ -49,6 +49,7 @@
 
 <script>
 import {computedPub} from '@/assets/js/pages/public'
+import {uodateStatus} from '@/db/status'
 export default {
   name: '',
   data () {
@@ -161,6 +162,7 @@ export default {
                 status: this.applyStatus === 'AGREE' ? 5 : 4
               })
             }
+            this.updateStatus(this.urlParams.Key)
             this.toUrl('/waitNews')
           } else {
             this.msgError('Error')
@@ -169,6 +171,17 @@ export default {
         })
       }
       this.eDialog.pwd = false
+    },
+    updateStatus (key) {
+      uodateStatus({
+        key: key,
+        type: 1,
+        status: 1
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     openPwdDialog (type) {
       console.log(type)

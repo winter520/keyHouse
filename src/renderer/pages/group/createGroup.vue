@@ -82,6 +82,7 @@
 <script>
 import {computedPub} from '@/assets/js/pages/public'
 import {findGroup} from '@/db/group'
+import {uodateStatus} from '@/db/status'
 export default {
   name: 'createAccount',
   props: {
@@ -248,6 +249,7 @@ export default {
           this.loading.creat = false
           this.$emit('closeModal')
           this.modalClick()
+          this.updateStatus(res.info)
           this.saveDB(res.info)
           this.msgSuccess(this.$t('success').s_3)
         }
@@ -256,6 +258,15 @@ export default {
         console.log(err)
         this.msgError(err.error)
         this.loading.creat = false
+      })
+    },
+    updateStatus (key) {
+      uodateStatus({
+        key: key,
+        type: 1,
+        status: 1
+      }).then(res => {
+        console.log(res)
       })
     },
     saveDB (key) {

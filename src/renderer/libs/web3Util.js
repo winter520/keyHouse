@@ -320,7 +320,7 @@ let web3Utils = {
               data = {msg: 'Success', info: []}
               // reject(data)
             }
-            console.log(data)
+            // console.log(data)
             resolve(data)
           }).catch(err => {
             console.log(err)

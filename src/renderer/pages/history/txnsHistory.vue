@@ -87,7 +87,6 @@ export default {
         pageSize: 10,
         total: 0
       },
-      timeout: 1000 * 60 * 10
     }
   },
   sockets: {
@@ -183,14 +182,11 @@ export default {
     formatData (data) {
       this.tableData = []
       let nowTime = Date.now()
-      // let timeout = 1000 * 30
-      // console.log()
       for (let i = 0, len = data.length; i < len; i++) {
         let dataObj = data[i]
         console.log(dataObj.status)
         if (dataObj.status === 0) {
           let state = 0
-          // if ((nowTime - dataObj.timestamp) < timeout) {
           if (dataObj.member && dataObj.member.length > 0) {
             let stateObj = { p: 0, a: 0, r: 0 }
             for (let obj of dataObj.member) {
@@ -211,7 +207,7 @@ export default {
             } else if (stateObj.a === dataObj.member.length) {
               state = 5
               this.getTxnsHash(dataObj._id, dataObj.key, i)
-            } else if ((nowTime - dataObj.timestamp) > this.timeout && stateObj.p > 0) {
+            } else if ((nowTime - dataObj.timestamp) > this.$$.config.timeout && stateObj.p > 0) {
               state = 6
               dataObj.status = state
               this.setTxnsDBState(dataObj._id, i, '', state)
@@ -232,8 +228,9 @@ export default {
       this.$$.getLockOutStatus(key).then(res => {
         console.log(res)
         if (res.msg === 'Success' && res.status === 'Success') {
-          this.setTxnsDBState(id, index, res.info.OutTxHash, 1)
-          this.tableData[index].hash = res.info.OutTxHash
+          let hash = res.info.OutTxHash.indexOf('0x') === 0 ? res.info.OutTxHash : ('0x' + res.info.OutTxHash)
+          this.setTxnsDBState(id, index, hash, 1)
+          this.tableData[index].hash = hash
         } else if (res.status === 'Failure') {
           this.setTxnsDBState(id, index, '', 2)
           this.tableData[index].status = 2

@@ -63,7 +63,7 @@ export default {
   },
   sockets: {
     getNodeInfos (res) {
-      console.log(res)
+      // console.log(res)
       if (res.msg === 'Success' && res.info.length > 0) {
         let arr = []
         this.netUrl = this.serverRPC ? this.serverRPC : res.info[0].url
@@ -75,8 +75,8 @@ export default {
           this.noSaveDBnet.push(obj.url)
         }
         this.netUrlArr.unshift(...arr)
-        console.log(this.netUrlArr)
-        console.log(this.netUrl.toString())
+        // console.log(this.netUrlArr)
+        // console.log(this.netUrl.toString())
       }
     }
   },
@@ -85,9 +85,9 @@ export default {
       // console.log(123)
       this.netUrl = this.serverRPC
     },
-    netUrl (cur) {
-      console.log(cur)
-    }
+    // netUrl (cur) {
+    //   console.log(cur)
+    // }
   },
   computed: {
     ...computedPub
@@ -99,7 +99,7 @@ export default {
   methods: {
     getNetUrl () {
       findNode().then(res => {
-        console.log(res)
+        // console.log(res)
         this.netUrlArr = [{
           url: this.$$.config.serverRPC
         }]

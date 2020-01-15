@@ -104,8 +104,6 @@ export default {
       });
     },
     inputFileBtn () {
-      let fileUrl = this.$$.config.file.ks.url + this.loginObj.username + this.$$.config.file.ks.type
-      // console.log(fileUrl)
       findAccount({name: this.loginObj.username}).then(res => {
         console.log(res)
         if (res.length > 0) {
