@@ -38,9 +38,6 @@ export default {
     ...computedPub
   },
   sockets: {
-    connect () {
-      console.log(13)
-    },
     kline (res) {
       console.log(res)
     }

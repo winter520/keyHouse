@@ -34,7 +34,7 @@ let publicSet = {
   /**
    * @description 区块节点请求地址
    */
-  serverRPC: 'http://127.0.0.1:4449',
+  serverRPC: 'http://127.0.0.1:6691',
   /**
    * @description 通过地址查询外部交易历史
    */
@@ -121,15 +121,15 @@ let publicSet = {
   initGroupMode: '5/5',
 }
 
-// publicSet.appURL = 'http://139.196.26.212:8300'
-publicSet.appURL = 'http://localhost:8300'
+publicSet.appURL = 'http://139.196.26.212:8300'
+// publicSet.appURL = 'http://localhost:8300'
 // publicSet.appURL = 'http://192.168.1.184:8877'
 // publicSet.appURL = 'http://192.168.1.153:7700'
 
 // publicSet.serverRPC = 'http://192.168.1.104:9010'
-publicSet.serverRPC = 'http://192.168.1.104:9011'
-publicSet.serverRPC = 'http://192.168.1.104:9012'
-publicSet.serverRPC = 'http://192.168.1.104:9013'
+// publicSet.serverRPC = 'http://192.168.1.104:9011'
+// publicSet.serverRPC = 'http://192.168.1.104:9012'
+// publicSet.serverRPC = 'http://192.168.1.104:9013'
 
 // publicSet.serverRPC = 'http://192.168.1.187:9991'
 

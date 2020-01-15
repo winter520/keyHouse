@@ -10,7 +10,7 @@
         <el-option
           v-for="(item, index) in netUrlArr"
           :key="index"
-          :label="item.name ? item.name : item.url"
+          :label="item.name"
           :value="item.url">
         </el-option>
       </el-select>
@@ -66,17 +66,27 @@ export default {
       console.log(res)
       if (res.msg === 'Success' && res.info.length > 0) {
         let arr = []
+        this.netUrl = this.serverRPC ? this.serverRPC : res.info[0].url
         for (let obj of res.info) {
-          arr.push(obj)
+          arr.push({
+            name: obj.name,
+            url: obj.url
+          })
           this.noSaveDBnet.push(obj.url)
         }
         this.netUrlArr.unshift(...arr)
+        console.log(this.netUrlArr)
+        console.log(this.netUrl.toString())
       }
     }
   },
   watch: {
     serverRPC () {
+      // console.log(123)
       this.netUrl = this.serverRPC
+    },
+    netUrl (cur) {
+      console.log(cur)
     }
   },
   computed: {
@@ -89,7 +99,7 @@ export default {
   methods: {
     getNetUrl () {
       findNode().then(res => {
-        // console.log(res)
+        console.log(res)
         this.netUrlArr = [{
           url: this.$$.config.serverRPC
         }]
@@ -98,16 +108,20 @@ export default {
           for (let obj of res) {
             if (!this.noSaveDBnet.includes(obj.url)) {
               this.noSaveDBnet.push(obj.url)
-              this.netUrlArr.push(obj)
+              this.netUrlArr.push({
+                url: obj.url,
+                name: obj.url
+              })
             }
           }
         }
-        this.netUrl = this.serverRPC
         this.$socket.emit('getNodeInfos')
       })
     },
     saveRpcDB () {
       let url = this.netUrl
+      // console.log(url)
+      // console.log(this.noSaveDBnet.includes(url))
       if (!this.noSaveDBnet.includes(url)) {
         findNode({url: url}).then(res => {
           if (res.length <= 0 && url !== this.$$.config.serverRPC) {
