@@ -87,7 +87,7 @@ export default {
         pageSize: 10,
         total: 0
       },
-      timeout: 1000 * 60 * 30
+      timeout: 1000 * 60 * 10
     }
   },
   sockets: {
