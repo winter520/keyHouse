@@ -1,16 +1,57 @@
 <template>
   <div class="boxConntent1" v-loading="loading.history" :element-loading-text="$t('loading').l_1">
-    <!-- <el-breadcrumb separator-class="el-icon-arrow-right" class="mt-20">
-      <el-breadcrumb-item :to="{ path: '/group' }" v-if="Number(safeMode) === 0">{{$t('title').groupAccount}}</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/person' }" v-if="Number(safeMode) === 1">{{$t('title').personAccount}}</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/waitNews' }">{{$t('title').wait}}</el-breadcrumb-item>
-      <el-breadcrumb-item>{{$t('label').txnHistory}}</el-breadcrumb-item>
-      <el-breadcrumb-item v-if="coinType">{{$$.cutERC20(coinType).coinType}}</el-breadcrumb-item>
-      <el-breadcrumb-item v-if="dcrmAddr">{{dcrmAddr}}</el-breadcrumb-item>
-    </el-breadcrumb> -->
-
-    <div class="table-box mt-20">
-      <el-table :data="tableData" border style="width: 100%" :empty-text="$t('warn').w_12">
+    <div class="table-box">
+      <el-table :data="tableData" style="width: 100%" :empty-text="$t('warn').w_12">
+        <el-table-column type="expand">
+          <template slot-scope="scope">
+            <el-form label-position="left" inline class="tables-expand">
+              <el-form-item label="ID">
+                <span>{{ scope.row.key }}</span>
+              </el-form-item>
+              <el-form-item :label="$t('label').groupId + ':'">
+                <span>{{ scope.row.gId }}</span>
+              </el-form-item>
+              <el-form-item :label="$t('label').from + ':'">
+                <span>{{ scope.row.from }}</span>
+              </el-form-item>
+              <el-form-item :label="$t('label').to + ':'">
+                <span>{{ scope.row.to }}</span>
+              </el-form-item>
+              <el-form-item :label="$t('label').coinType + ':'">
+                <span>{{ $$.cutERC20(scope.row.coinType).coinType}}</span>
+              </el-form-item>
+              <el-form-item :label="$t('label').value + ':'">
+                <span>{{ $$.thousandBit($$.fromWei(scope.row.value, $$.cutERC20(scope.row.coinType).coinType), 2) }}</span>
+              </el-form-item>
+              <el-form-item :label="$t('label').date + ':'">
+                <span>{{$$.timeChange(scope.row.timestamp, 'yyyy-mm-dd hh:mm')}}</span>
+              </el-form-item>
+              <el-form-item :label="$t('label').details + ':'">
+                <el-table :data="scope.row.member" border style="width: 100%" size="mini">
+                  <el-table-column
+                    type="index"
+                    width="50"
+                  ></el-table-column>
+                  <el-table-column :label="$t('label').identity" width="90" align="center">
+                    <template slot-scope="props">
+                      <span>{{props.row.initiate ? $t('label').initiator : $t('label').approver}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="ENODE" align="center">
+                    <template slot-scope="props">
+                      <span>{{props.row.eNode}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('state').name" width="90" align="center">
+                    <template slot-scope="props">
+                      <span :class="props.row.status === 0 || props.row.status === 1 || props.row.status === 5 ? 'color_green' : 'color_red'">{{$$.changeState(props.row.status)}}</span>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
         <el-table-column
           type="index"
           width="50">
@@ -44,7 +85,7 @@
         </el-table-column>
         <el-table-column :label="$t('label').hash" align="center">
           <template slot-scope="scope" @click="copyTxt(scope.row)">
-            <span :title="scope.row.hash" @click="copyTxt(scope.row.hash)" class="cursorP">{{scope.row.hash}}</span>
+            <span :title="scope.row.hash" @click="copyTxt(scope.row.hash)" class="cursorP">{{$$.cutOut(scope.row.hash, 18, 12)}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -67,6 +108,8 @@
 // .table-box {
 
 // }
+
+
 </style>
 
 <script>
@@ -184,7 +227,7 @@ export default {
       let nowTime = Date.now()
       for (let i = 0, len = data.length; i < len; i++) {
         let dataObj = data[i]
-        console.log(dataObj.status)
+        // console.log(dataObj.status)
         if (dataObj.status === 0) {
           let state = 0
           if (dataObj.member && dataObj.member.length > 0) {
@@ -200,7 +243,7 @@ export default {
                 stateObj.a ++
               }
             }
-            console.log(stateObj)
+            // console.log(stateObj)
             if (stateObj.r > 0) {
               state = 4
               this.setTxnsDBState(dataObj._id, i, '', state)

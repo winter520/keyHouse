@@ -10,6 +10,7 @@ export default {
 		err_7: 'Account already exists',
 		err_8: 'Account does not exist',
 		err_9: 'Connection failed!',
+		err_10: 'Current node connection failed, please check the node!',
 	},
 	warn: {
 		w_1: 'Please select an account',
@@ -29,6 +30,8 @@ export default {
 		w_15: 'Please enter the amount',
 		w_16: 'Cancelled',
 		w_17: 'Can not be empty',
+		w_18: 'Incorrect format',
+		w_19: 'Insufficient Balance',
 	},
 	success: {
 		s_1: 'Created successfully!',
@@ -102,7 +105,7 @@ export default {
 		info: 'Information',
 		hash: 'TxHash',
 		mode: 'Mode',
-		to: 'To Address',
+		to: 'To',
 		value: 'Value',
 		source: 'Source',
 		from: 'From',
@@ -117,7 +120,10 @@ export default {
 		approver: 'Approver',
 		version: 'Version',
 		versionTest: 'Testnet',
-		groupId: 'Group ID'
+		groupId: 'Group ID',
+		identity: 'Identity',
+		details: 'Details',
+		approvalTime: 'Approval Time Remaining'
 	},
 	state: {
 		name: 'Status',
@@ -127,7 +133,8 @@ export default {
 		fail: 'Fail',
 		pending: 'Pending',
 		null: 'Null',
-		new: 'New'
+		new: 'New',
+		end: 'End'
 	},
 	tip: {
 		name: 'Tip',

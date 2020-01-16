@@ -33,15 +33,16 @@
             <!-- <el-button @click.prevent="removeDomain(eNode)" class="ml-10" v-if="Number(index) !== 0">删除</el-button> -->
           </div>
         </el-form-item>
-        <el-form-item class="flex-ec">
-          <el-button type="primary" @click="submitForm('rawTxData', 'AGREE')" v-if="isApplySataus && isReplySet">{{$t('btn').agree}}</el-button>
-          <el-button type="danger" @click="submitForm('rawTxData', 'DISAGREE')" v-if="isApplySataus && isReplySet">{{$t('btn').refuse}}</el-button>
-
-          <el-button type="success" @click="reviewApply" v-if="isApplySataus && !isReplySet">{{$t('btn').review}}</el-button>
-
-
-
-          <el-button @click="toUrl('/tNewsList')">{{$t('btn').back}}</el-button>
+        <el-form-item>
+          <div class="flex-bc WW100">
+            <div>{{$t('label').approvalTime}}：<span :class="countDown > 60 ? 'color_green' : 'color_red'">{{countDown ? (countDown + ' s') : $t('state').end}}</span></div>
+            <div>
+              <el-button type="primary" @click="submitForm('rawTxData', 'AGREE')" v-if="countDown && isApplySataus && isReplySet">{{$t('btn').agree}}</el-button>
+              <el-button type="danger" @click="submitForm('rawTxData', 'DISAGREE')" v-if="countDown && isApplySataus && isReplySet">{{$t('btn').refuse}}</el-button>
+              <el-button type="success" @click="reviewApply" v-if="countDown && isApplySataus && !isReplySet">{{$t('btn').review}}</el-button>
+              <el-button @click="toUrl('/tNewsList')">{{$t('btn').back}}</el-button>
+            </div>
+          </div>
         </el-form-item>
       </el-form>
     </div>
@@ -77,7 +78,8 @@ export default {
       isReplySet: true,
       applyStatus: '',
       keyId: '',
-      gForm: {}
+      gForm: {},
+      countDown: 0
     }
   },
   computed: {
@@ -103,7 +105,9 @@ export default {
           mode: aObj.mode,
           eNode: arr,
           gID: aObj.key,
+          timestamp: aObj.timestamp
         }
+        this.countDownFn()
       } else {
         for (let obj of this.urlParams.Enodes) {
           arr.push({
@@ -137,6 +141,17 @@ export default {
     },
     reviewApply () {
       this.isReplySet = true
+    },
+    countDownFn () {
+      let timeout = this.$$.config.timeout
+      let countInterval = setInterval(() => {
+        if (Date.now() - this.gForm.timestamp > timeout) {
+          this.countDown = 0
+          clearInterval(countInterval)
+        } else {
+          this.countDown = parseInt((timeout - (Date.now() - this.gForm.timestamp)) / 1000)
+        }
+      }, 500)
     },
     async showGroupData () {
       this.rawTxData = {

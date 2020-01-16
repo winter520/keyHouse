@@ -10,6 +10,7 @@ export default {
 		err_7: '账户已存在',
 		err_8: '账户不存在',
 		err_9: '连接失败！',
+		err_10: '当前节点连接失败，请检查节点！',
 	},
 	warn: {
 		w_1: '请选择账户',
@@ -29,6 +30,8 @@ export default {
 		w_15: '请输入金额',
 		w_16: '已取消',
 		w_17: '不能为空',
+		w_18: '格式不正确',
+		w_19: '余额不足',
 	},
 	success: {
 		s_1: '创建成功！',
@@ -119,7 +122,10 @@ export default {
 		approver: '审批者',
 		version: '版本',
 		versionTest: '测试网',
-		groupId: '组ID'
+		groupId: '组ID',
+		identity: '身份',
+		details: '详情',
+		approvalTime: '审批剩余时间'
 	},
 	state: {
 		name: '状态',
@@ -129,7 +135,8 @@ export default {
 		fail: '失败',
 		pending: '等待中',
 		null: '无',
-		new: '新'
+		new: '新',
+		end: '结束'
 	},
 	tip: {
 		name: '提示',

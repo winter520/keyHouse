@@ -320,6 +320,25 @@ export default {
     },
     changeState (item, index) {
       if (!item.value) return
+      let enode = item.value
+      let enodeArr = this.groupForm.eNode
+      if (enode.indexOf('enode:') < 0 || enode.indexOf('@') < 0 ) {
+        this.msgError(this.$t('warn').w_18)
+        return
+      }
+      let arr = new Set()
+      for (let i = 0, len = enodeArr.length; i < len; i++) {
+        if (i !== index && enodeArr[i].value) {
+          let eNodeKey = enodeArr[i].value.match(/enode:\/\/(\S*)@/)[1]
+          arr.add(eNodeKey)
+        }
+      }
+      let enode1 = enode.match(/enode:\/\/(\S*)@/)[1]
+      if (arr.has(enode1)) {
+        this.groupForm.eNode[index].value = ''
+        this.msgError('Repeat')
+        return
+      }
       this.$$.getEnodeState(item.value.replace(/\s/, '').split('0x')[0]).then(res => {
         console.log(res)
         this.groupForm.eNode[index].state = res
